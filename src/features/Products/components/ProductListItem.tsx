@@ -12,7 +12,10 @@ interface IProps {
 
 const ProductListItem: React.FC<IProps> = ({product, onPress}) => {
   return (
-    <TouchableOpacity onPress={onPress} style={styles.container}>
+    <TouchableOpacity
+      onPress={onPress}
+      style={styles.container}
+      testID={'product-list-item'}>
       <Image source={{uri: product.image}} style={styles.image} />
       <View style={styles.infoContainer}>
         <Text type="subheadline" style={styles.title}>

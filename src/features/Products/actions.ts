@@ -7,4 +7,10 @@ export const ProductActions = {
     'products/fetchProductsSuccess',
   ),
   fetchProductsFailure: createAction<string>('products/fetchProductsFailure'),
+
+  searchProductsRequest: createAction<string>('products/searchProductsRequest'),
+  searchProductsSuccess: createAction<{query: string; results: Product[]}>(
+    'products/searchProductsSuccess',
+  ),
+  searchProductsFailure: createAction<string>('products/searchProductsFailure'),
 } as const;

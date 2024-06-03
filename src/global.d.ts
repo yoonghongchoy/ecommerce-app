@@ -7,6 +7,12 @@ declare global {
     : T extends (...params: unknown[]) => Promise<unknown>
     ? Awaited<ReturnType<T>>
     : never;
+
+  // Utility type to make certain properties optional
+  type Optional<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
+
+  // Utility type for a function that returns void
+  type VoidFunction = () => void;
 }
 
 // This is to make the file a module

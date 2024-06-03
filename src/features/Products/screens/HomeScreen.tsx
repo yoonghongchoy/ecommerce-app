@@ -7,6 +7,7 @@ import {Colors, Spacing} from '../../../shared/styles';
 import {ProductSelectors} from '../selectors';
 import {ProductActions} from '../actions';
 import {Product} from '../../../api/products/types';
+import {ProductListItem} from '../components';
 
 const HomeScreen: React.FC<{}> = () => {
   const dispatch = useDispatch();
@@ -21,9 +22,31 @@ const HomeScreen: React.FC<{}> = () => {
 
   const renderItem = ({item}: {item: Product}) => {
     return (
-      <View>
-        <Text>{item.title}</Text>
-      </View>
+      <ProductListItem
+        product={item}
+        onPress={() => {
+          // TODO: Navigate to product details screen
+        }}
+      />
+    );
+  };
+
+  const renderContent = () => {
+    if (loading) {
+      return <ActivityIndicator size={'large'} color={Colors.accent} />;
+    }
+
+    if (error) {
+      return <Text style={styles.error}>{error}</Text>;
+    }
+
+    // TODO: Optimizations and refresh control
+    return (
+      <FlatList
+        data={products}
+        renderItem={renderItem}
+        keyExtractor={item => item.id.toString()}
+      />
     );
   };
 
@@ -37,17 +60,7 @@ const HomeScreen: React.FC<{}> = () => {
         value={''}
         onChangeText={undefined}
       />
-      {loading ? (
-        <ActivityIndicator size={'large'} color={Colors.accent} />
-      ) : error ? (
-        <Text style={styles.error}>{error}</Text>
-      ) : (
-        <FlatList
-          data={products}
-          renderItem={renderItem}
-          keyExtractor={item => item.id.toString()}
-        />
-      )}
+      {renderContent()}
     </View>
   );
 };

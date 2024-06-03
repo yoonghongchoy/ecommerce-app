@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   ActivityIndicator,
   Image,
@@ -10,9 +10,16 @@ import {
 import {Colors, Spacing} from '../../../shared/styles';
 import {Text} from '../../../shared/components';
 import {useCurrentUser} from '../../../context/userContext';
+import ContentLoader from 'react-content-loader/native';
+import {Circle} from 'react-native-svg';
 
 const UserProfileScreen: React.FC<{}> = () => {
   const {user, loading, error} = useCurrentUser();
+  const [imageLoaded, setImageLoaded] = useState(false);
+
+  const handleImageLoad = () => {
+    setImageLoaded(true);
+  };
 
   if (loading) {
     return <ActivityIndicator size="large" color={Colors.accent} />;
@@ -27,9 +34,22 @@ const UserProfileScreen: React.FC<{}> = () => {
       {user && (
         <>
           <View style={styles.profileHeader}>
+            {!imageLoaded && (
+              <ContentLoader
+                viewBox="0 0 100 100"
+                height={100}
+                width={100}
+                backgroundColor={Colors.backgroundSecondary}
+                foregroundColor={Colors.backgroundPrimary}
+                style={styles.imageLoader}>
+                <Circle cx="50" cy="50" r="50" />
+              </ContentLoader>
+            )}
             <Image
               source={{uri: 'https://source.unsplash.com/100x100/?face'}}
-              style={styles.profileImage}
+              style={[styles.profileImage, !imageLoaded && styles.hiddenImage]}
+              onLoad={handleImageLoad}
+              onError={handleImageLoad}
             />
             <Text type="headline" style={styles.name}>
               {`${user.name.firstname} ${user.name.lastname}`}
@@ -73,11 +93,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: Spacing.S_4,
   },
+  imageLoader: {
+    marginBottom: Spacing.S_2,
+  },
   profileImage: {
     width: 100,
     height: 100,
     borderRadius: 50,
     marginBottom: Spacing.S_2,
+  },
+  hiddenImage: {
+    opacity: 0,
+    position: 'absolute',
   },
   name: {
     marginBottom: Spacing.S_2,

@@ -16,7 +16,14 @@ const initialState: UserState = {
 };
 
 const currentUser = createReducer(initialState.currentUser, builder => {
-  builder.addCase(UserActions.fetchUserSuccess, (_, action) => action.payload);
+  builder
+    .addCase(UserActions.fetchUserSuccess, (_, action) => action.payload)
+    .addCase(UserActions.updateEmail, (state, action) => {
+      if (state) {
+        return {...state, email: action.payload};
+      }
+      return state;
+    });
 });
 
 const loading = createReducer(initialState.loading, builder => {

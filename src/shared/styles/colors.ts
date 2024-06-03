@@ -5,6 +5,7 @@ const colors = {
   contentSecondary: '#666666',
   accent: '#0EBE9C',
   error: '#b00020',
+  border: '#e0e0e0',
 } as const;
 
 export default colors;

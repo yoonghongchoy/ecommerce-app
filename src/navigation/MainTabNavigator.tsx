@@ -5,9 +5,11 @@ import {HomeScreen} from '../features/Products';
 import {UserProfileScreen} from '../features/UserProfile';
 import {SettingsScreen} from '../features/Settings';
 
-const Tab = createBottomTabNavigator();
+import {MainTabParamList} from './types';
 
-const MainTabNavigator: React.FC = () => {
+const Tab = createBottomTabNavigator<MainTabParamList>();
+
+const MainTabNavigator: React.FC<{}> = () => {
   return (
     <Tab.Navigator>
       <Tab.Screen name="Home" component={HomeScreen} />

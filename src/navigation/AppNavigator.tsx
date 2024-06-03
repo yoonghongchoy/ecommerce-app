@@ -4,9 +4,11 @@ import React from 'react';
 import MainTabNavigator from './MainTabNavigator';
 import {ProductDetailsScreen} from '../features/Products';
 
-const Stack = createNativeStackNavigator();
+import {RootStackParamList} from './types';
 
-const App: React.FC<{}> = () => {
+const Stack = createNativeStackNavigator<RootStackParamList>();
+
+const AppNavigator: React.FC<{}> = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -15,7 +17,7 @@ const App: React.FC<{}> = () => {
         options={{headerShown: false}}
       />
       <Stack.Screen
-        name="ProductDetail"
+        name="ProductDetails"
         component={ProductDetailsScreen}
         options={{title: 'Product Details'}}
       />
@@ -23,4 +25,4 @@ const App: React.FC<{}> = () => {
   );
 };
 
-export default App;
+export default AppNavigator;

@@ -2,6 +2,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import React from 'react';
 
 import MainTabNavigator from './MainTabNavigator';
+import {ProductDetailsScreen} from '../features/Products';
 
 const Stack = createNativeStackNavigator();
 
@@ -12,6 +13,11 @@ const App: React.FC<{}> = () => {
         name="Main"
         component={MainTabNavigator}
         options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="ProductDetail"
+        component={ProductDetailsScreen}
+        options={{title: 'Product Details'}}
       />
     </Stack.Navigator>
   );

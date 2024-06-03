@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import {ActivityIndicator, FlatList, StyleSheet, View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
+import {useNavigation} from '@react-navigation/native';
 
 import {Input, Text} from '../../../shared/components';
 import {Colors, Spacing} from '../../../shared/styles';
@@ -11,6 +12,7 @@ import {ProductListItem} from '../components';
 
 const HomeScreen: React.FC<{}> = () => {
   const dispatch = useDispatch();
+  const navigation = useNavigation();
 
   const products = useSelector(ProductSelectors.products);
   const loading = useSelector(ProductSelectors.loading);
@@ -25,7 +27,7 @@ const HomeScreen: React.FC<{}> = () => {
       <ProductListItem
         product={item}
         onPress={() => {
-          // TODO: Navigate to product details screen
+          navigation.navigate('ProductDetails', {product: item});
         }}
       />
     );

@@ -1,8 +1,8 @@
 import {combineReducers} from '@reduxjs/toolkit';
-import products from '../features/Products/reducers';
+import {productReducers} from '../features/Products';
 
 const rootReducer = combineReducers({
-  products,
+  productReducers,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

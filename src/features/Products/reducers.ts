@@ -48,10 +48,8 @@ const error = createReducer(initialState.error, builder => {
  * Reason: Can easily add more reducers for different parts of the
  * product state in the future without modifying the existing structure too much
  */
-const products = combineReducers({
+export const products = combineReducers({
   products: _products,
   loading,
   error,
 });
-
-export default products;
